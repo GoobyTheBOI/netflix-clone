@@ -16,6 +16,7 @@
     -o-transition: opacity 0.4s cubic-bezier(0.665, 0.235, 0.265, 0.8) 0s;
     -moz-transition: opacity 0.4s cubic-bezier(0.665, 0.235, 0.265, 0.8) 0s;
     transition: opacity 0.4s cubic-bezier(0.665, 0.235, 0.265, 0.8) 0s;
+    height: 100px;
 }
 
 .banner__content {
