@@ -1,8 +1,13 @@
 import React from "react";
-import "./App.css";
-import Row from "./components/Row/Row";
-import request from "./request";
+import "./App.scss";
+// import Row from "./components/Row/Row";
+// import request from "./request";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, {Navigation} from 'swiper';
+import 'swiper/swiper.scss';
 import Banner from "./components/Banner/Banner";
+
+SwiperCore.use([Navigation]);
 
 function App() {
     return (
@@ -10,8 +15,8 @@ function App() {
             {/* Navbar */}
 
             {/* Banner */}
-            <Banner />
-            <Row
+            {/* <Banner /> */}
+            {/* <Row
                 title="NETFLIX ORIGINALS"
                 fetchUrl={request.fetchNetflixOriginals}
                 isLargeRow
@@ -22,7 +27,21 @@ function App() {
             <Row title="Comedy Movies" fetchUrl={request.fetchComedyMovies} />
             <Row title="Horror Movies" fetchUrl={request.fetchHorrorMovies} />
             <Row title="Romance Movies" fetchUrl={request.fetchRomanceMovies} />
-            <Row title="Documentaries" fetchUrl={request.fetchDocumentaries} />
+            <Row title="Documentaries" fetchUrl={request.fetchDocumentaries} /> */}
+
+            <Swiper
+                spaceBetween={50}
+                slidesPerView={3}
+                onSlideChange={() => console.log('slide change')}
+                onSwiper={(swiper) => console.log(swiper)}
+                >
+                <SwiperSlide>Slide 1</SwiperSlide>
+                <SwiperSlide>Slide 2</SwiperSlide>
+                <SwiperSlide>Slide 3</SwiperSlide>
+                <SwiperSlide>Slide 4</SwiperSlide>
+                ...
+            </Swiper>
+
         </div>
     );
 }
