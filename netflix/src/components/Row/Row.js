@@ -9,7 +9,7 @@ SwiperCore.use([Navigation, Pagination]);
 
 const image_url = "https://image.tmdb.org/t/p/original/";
 
-function Row({ title, fetchUrl, isLargeRow }) {
+function Row({ title, fetchUrl, isLargeRow, spaceBetween }) {
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
@@ -31,7 +31,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
             {/* several Posters */}
             <div className="row__posters">
-                <Swiper slidesPerView={6} spaceBetween={10} navigation pagination slidesPerGroup={4}>
+                <Swiper slidesPerView={6} spaceBetween={20} navigation pagination slidesPerGroup={4}>
                     {movies.map((movie) => (
                         // console.log(movie)
                         <SwiperSlide key={movie.id}>
