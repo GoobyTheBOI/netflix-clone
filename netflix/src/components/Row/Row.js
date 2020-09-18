@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, {Navigation, Pagination} from 'swiper';
+import SwiperCore, {Navigation, Pagination } from 'swiper';
 import "./row.css";
 import "./swiper.scss";
 
@@ -11,7 +11,6 @@ const image_url = "https://image.tmdb.org/t/p/original/";
 
 function Row({ title, fetchUrl, isLargeRow }) {
     const [movies, setMovies] = useState([]);
-
 
     useEffect(() => {
         // if [] empty, run once when the row loads and don't run it again.
@@ -32,7 +31,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
             {/* several Posters */}
             <div className="row__posters">
-            <Swiper slidesPerView={6} spaceBetween={20} navigation pagination rebuildonupdate slidesPerGroup={4} breakpoints={{100: {
+            <Swiper slidesPerView={6} spaceBetween={20} navigation pagination slidesPerGroup={4} breakpoints={{100: {
           slidesPerView: 2,
           spaceBetween: 10,
         },
