@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
+// import request from "../../request";
+import Iframe from "react-iframe";
 import requests from "../../request";
 import "./banner.css";
 
+const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
+
 function Banner() {
     const [movie, setMovies] = useState([]);
+    const [video, setVideo] = useState([]);
 
     useEffect(() => {
         // if [] empty, run once when the row loads and don't run it again.
@@ -19,9 +24,22 @@ function Banner() {
             return request;
         }
         fetchData();
-    }, []);
+    }, [setMovies]);
 
-    console.log(movie);
+    useEffect(() => {
+        console.log(movie.id);
+        async function fetchData() {
+            const request = await axios.get(
+                `${requests.fetchVideo}${movie.id}/videos?api_key=${API_KEY}`
+            );
+            setVideo(request.data.results[0]);
+
+            return request;
+        }
+        fetchData();
+    }, [movie, setVideo]);
+
+    console.log(video);
 
     function truncate(str, n) {
         return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -48,6 +66,15 @@ function Banner() {
                     {truncate(movie?.overview, 150)}
                 </p>
             </div>
+            {video.key !== "" ? (
+                <Iframe
+                    className="banner__trailer"
+                    url={`http://www.youtube.com/embed/${video.key}?autoplay=1`}
+                    allow="autoplay"
+                />
+            ) : (
+                ""
+            )}
             <div className="banner--fadeBottom"></div>
         </header>
     );

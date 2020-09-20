@@ -73,9 +73,17 @@
     );
 }
 
-@media screen and (max-width: 1070px){
-    .banner__button{
+.banner__trailer {
+    width: 100%;
+    min-height: 45.25vw;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    border: none;
+}
+
+@media screen and (max-width: 1070px) {
+    .banner__button {
         font-size: 1.2vw;
     }
 }
-

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
-import Swiper from "react-id-swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 import "./row.css";
 import "./swiper.scss";
-// import 'swiper/swiper.scss'
+
+SwiperCore.use([Navigation, Pagination]);
 
 const image_url = "https://image.tmdb.org/t/p/original/";
 
@@ -17,42 +19,8 @@ function Row({ title, fetchUrl, isLargeRow }) {
             setMovies(request.data.results);
             return request;
         }
-
         fetchData();
     }, [fetchUrl]);
-
-    const params = {
-        slidesPerView: 6,
-        slidesPerGroup: 4,
-        breakpoints: {
-            100: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-            },
-            640: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-            },
-            768: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-            },
-            1024: {
-                slidesPerView: 5,
-                spaceBetween: 20,
-            },
-        },
-        pagination: {
-            el: ".swiper-pagination",
-            type: "bullets",
-            clickable: true,
-        },
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        spaceBetween: 20,
-    };
 
     // console.log(movies)
     // observer={true} observeParents={true}
@@ -63,9 +31,39 @@ function Row({ title, fetchUrl, isLargeRow }) {
 
             {/* several Posters */}
             <div className="row__posters">
-                <Swiper {...params} shouldSwiperUpdate rebuildOnUpdate>
+                <Swiper
+                    slidesPerView={6}
+                    spaceBetween={20}
+                    navigation
+                    pagination
+                    slidesPerGroup={4}
+                    breakpoints={{
+                        100: {
+                            slidesPerView: 2,
+                            spaceBetween: 10,
+                        },
+                        640: {
+                            slidesPerView: 3,
+                            spaceBetween: 10,
+                        },
+                        768: {
+                            slidesPerView: 4,
+                            spaceBetween: 10,
+                        },
+                        870: {
+                            slidesPerView: 5,
+                            spaceBetween: 10,
+                        },
+                        1024: {
+                            slidesPerView: 6,
+                            spaceBetween: 10,
+                        },
+                    }}
+                >
                     {movies.map((movie) => (
-                        <div className="swiper-slide">
+                        // console.log(movie)
+
+                        <SwiperSlide key={movie.id}>
                             <img
                                 className={`row__poster ${
                                     isLargeRow && "row__posterLargeRow"
@@ -78,10 +76,11 @@ function Row({ title, fetchUrl, isLargeRow }) {
                                 }`}
                                 alt={movie.name}
                             />
-                        </div>
+                        </SwiperSlide>
                     ))}
                 </Swiper>
             </div>
+
             {/* container -> posters */}
         </div>
     );
