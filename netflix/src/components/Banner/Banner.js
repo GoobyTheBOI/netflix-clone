@@ -3,6 +3,7 @@ import axios from "../../axios";
 // import request from "../../request";
 import Iframe from "react-iframe";
 import requests from "../../request";
+import YouTube from 'react-youtube';
 import "./banner.css";
 
 const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
@@ -10,6 +11,24 @@ const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
 function Banner() {
     const [movie, setMovies] = useState([]);
     const [video, setVideo] = useState([]);
+
+    const opts = {
+        playerVars: {
+            // https://developers.google.com/youtube/player_parameters
+            autoplay: 1,
+        },
+    };
+        
+    // function myFunction() {
+    //     setTimeout(() => {
+    //     let trailer = document.getElementById("trailer");
+    //         if (trailer.style.display === "none") {
+    //             trailer.style.display = "block";
+    //         } else {
+    //             trailer.style.display = "none";
+    //         }
+    //     }, 100);
+    // }
 
     useEffect(() => {
         // if [] empty, run once when the row loads and don't run it again.
@@ -67,11 +86,7 @@ function Banner() {
                 </p>
             </div>
             {video.key !== "" ? (
-                <Iframe
-                    className="banner__trailer"
-                    url={`http://www.youtube.com/embed/${video.key}?autoplay=1`}
-                    allow="autoplay"
-                />
+                <YouTube className="banner__trailer" id="trailer" videoId={`${video.key}`} onEnd={() => {console.log("trailer ends")}} opts={opts} />
             ) : (
                 ""
             )}
