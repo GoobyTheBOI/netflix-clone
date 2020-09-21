@@ -4,7 +4,6 @@ import Row from "./components/Row/Row";
 import request from "./request";
 import Banner from "./components/Banner/Banner";
 import Navbar from "./components/Navbar/Navbar";
-import YouTube from 'react-youtube';
 
 function App() {
 

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 // import request from "../../request";
-import Iframe from "react-iframe";
 import requests from "../../request";
 import YouTube from 'react-youtube';
+import $ from 'jquery';
 import "./banner.css";
 
 const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
@@ -16,19 +16,10 @@ function Banner() {
         playerVars: {
             // https://developers.google.com/youtube/player_parameters
             autoplay: 1,
+            controls: 0,
+            showinfo: false,
         },
     };
-        
-    // function myFunction() {
-    //     setTimeout(() => {
-    //     let trailer = document.getElementById("trailer");
-    //         if (trailer.style.display === "none") {
-    //             trailer.style.display = "block";
-    //         } else {
-    //             trailer.style.display = "none";
-    //         }
-    //     }, 100);
-    // }
 
     useEffect(() => {
         // if [] empty, run once when the row loads and don't run it again.
@@ -46,12 +37,15 @@ function Banner() {
     }, [setMovies]);
 
     useEffect(() => {
-        console.log(movie.id);
+        // console.log(movie.id);
         async function fetchData() {
             const request = await axios.get(
                 `${requests.fetchVideo}${movie.id}/videos?api_key=${API_KEY}`
             );
-            setVideo(request.data.results[0]);
+            
+            if (request.data.results.length > 1 || request.data.results.length !== null) {
+                setVideo(request.data.results[0]);   
+            }
 
             return request;
         }
@@ -85,11 +79,11 @@ function Banner() {
                     {truncate(movie?.overview, 150)}
                 </p>
             </div>
-            {video.key !== "" ? (
-                <YouTube className="banner__trailer" id="trailer" videoId={`${video.key}`} onEnd={() => {console.log("trailer ends")}} opts={opts} />
-            ) : (
-                ""
-            )}
+            <div className="videoWrapper">
+                {video !== undefined ?
+                <YouTube className="banner__trailer" id="trailer" videoId={video.key} onEnd={() => {$("#trailer").hide()}} opts={opts} />
+                : ''}
+            </div>
             <div className="banner--fadeBottom"></div>
         </header>
     );

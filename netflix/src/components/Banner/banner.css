@@ -31,6 +31,7 @@
     font-size: 3.8vw;
     font-weight: 800;
     padding-bottom: 0.3rem;
+    z-index: 3000;
 }
 
 .banner__description {
@@ -40,6 +41,11 @@
     max-width: 42.2vw;
     width: 100%;
     min-height: 80px;
+    z-index: 3000;
+}
+
+.banner__buttons{
+    z-index: 3000;
 }
 
 .banner__button {
@@ -76,14 +82,28 @@
 .banner__trailer {
     width: 100%;
     min-height: 45.25vw;
+    height: 18%;
     position: absolute;
     z-index: 2;
     top: 0;
     border: none;
 }
 
+/* .videoWrapper {
+    padding-top: 25px;
+    height: 0;
+} */
+
+
 @media screen and (max-width: 1070px) {
     .banner__button {
         font-size: 1.2vw;
     }
+}
+
+@media (min-aspect-ratio: 16/9) {
+  .videoWrapper { height: 300%; top: -100%; }
+}
+@media (max-aspect-ratio: 16/9) {
+  .videoWrapper { width: 300%; left: -100%; }
 }
