@@ -4,7 +4,7 @@ import axios from "../../axios";
 import requests from "../../request";
 import YouTube from 'react-youtube';
 import $ from 'jquery';
-import "./banner.css";
+import "./banner.scss";
 
 const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
 
@@ -18,6 +18,7 @@ function Banner() {
             autoplay: 1,
             controls: 0,
             showinfo: false,
+            frameborder: 0,
         },
     };
 

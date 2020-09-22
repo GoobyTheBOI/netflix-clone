@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from "./img/Netflix_logo.png";
 import profile_logo from "./img/profile-logo.png";
-import "./nav.css";
+import "./nav.scss";
 
 function Navbar() {
 

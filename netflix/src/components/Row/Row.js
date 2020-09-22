@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "../../axios";
 import Swiper from "react-id-swiper";
-import "./row.css";
+import "./row.scss";
 import "./swiper.scss";
-// import 'swiper/swiper.scss'
 
 const image_url = "https://image.tmdb.org/t/p/original/";
 
