@@ -6,11 +6,10 @@ import YouTube from 'react-youtube';
 import $ from 'jquery';
 import "./banner.scss";
 
-const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
 
 function Banner() {
     const [movie, setMovies] = useState([]);
-    const [video, setVideo] = useState([]);
+    const [video, setVideo] = useState();
 
     const opts = {
         playerVars: {
@@ -19,6 +18,7 @@ function Banner() {
             controls: 0,
             showinfo: false,
             frameborder: 0,
+            muted: 1,
         },
     };
 
@@ -31,29 +31,64 @@ function Banner() {
                 request.data.results[
                     Math.floor(Math.random() * request.data.results.length - 1)
                 ]
+                // request.data.results[18]
             );
             return request;
         }
         fetchData();
     }, [setMovies]);
 
+
+    // Movie trailers
     useEffect(() => {
         // console.log(movie.id);
         async function fetchData() {
+            const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
+            
             const request = await axios.get(
-                `${requests.fetchVideo}${movie.id}/videos?api_key=${API_KEY}`
+                `${requests.fetchMovieVideo}${movie?.id}/videos?api_key=${API_KEY}`
             );
+            // const testQuery = await axios.get(`${request.fetchTvVideo}${movie.id}/videos?api_key${API_KEY}`);
             
             if (request.data.results.length > 1 || request.data.results.length !== null) {
-                setVideo(request.data.results[0]);   
+                setVideo(request.data.results[0]);  
+                console.log("movie") 
             }
-
             return request;
         }
         fetchData();
     }, [movie, setVideo]);
 
-    console.log(video);
+
+    // Series Trailers
+    useEffect(() => {
+        // console.log(movie.id);
+        async function fetchData() {
+            const API_KEY = "01437cb0b0717dea1516e3402f9ae2c1";
+
+            const trailerRequest = await axios.get(
+                `${requests.fetchTvVideo}${movie?.id}/videos?api_key=${API_KEY}`
+            );
+
+            // const movieRequest = await axios.get(
+            //     `${requests.fetchMovieVideo}${movie?.id}/videos?api_key=${API_KEY}`
+            // );
+            // const testQuery = await axios.get(`${request.fetchTvVideo}${movie.id}/videos?api_key${API_KEY}`);
+            
+            // setVideo(movieRequest.data.results[0])
+            if(trailerRequest.data.results.lenght > 1 || trailerRequest.data.results !== null){
+                setVideo(trailerRequest.data.results[0])
+            }
+
+            return trailerRequest;
+        }
+        fetchData();
+
+    }, [movie, setVideo]);
+
+    // console.log("movie:",movie,"trailer",video)
+    console.log(video)
+    // console.log(movie)
 
     function truncate(str, n) {
         return str?.length > n ? str.substr(0, n - 1) + "..." : str;
@@ -82,7 +117,7 @@ function Banner() {
             </div>
             <div className="videoWrapper">
                 {video !== undefined ?
-                <YouTube className="banner__trailer" id="trailer" videoId={video.key} onEnd={() => {$("#trailer").hide()}} opts={opts} />
+                    <YouTube className="banner__trailer" id="trailer" videoId={video.key} onEnd={() => {$("#trailer").hide()}} opts={opts} />
                 : ''}
             </div>
             <div className="banner--fadeBottom"></div>
